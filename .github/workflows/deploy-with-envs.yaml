@@ -1,4 +1,4 @@
-name: "deply-withenvs"
+name: "deploy-with-envs"
 on:
   workflow_dispatch:
     inputs:
