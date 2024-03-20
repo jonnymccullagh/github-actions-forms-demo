@@ -1,0 +1,37 @@
+name: "deply-withenvs"
+on:
+  workflow_dispatch:
+    inputs:
+      deploy_env:
+        type: choice
+        description: Action the DEV or PROD deployment
+        options:
+          - dev
+          - prod
+      client:
+        type: choice
+        description: Which client are we deploying?
+        options:
+          - northwind
+          - acme
+
+jobs:
+  build:
+    name: "build"
+    runs-on: ubuntu
+    env:
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+      - name: Load .env file
+        uses: xom9ikk/dotenv@v2
+        with:
+          path: environments
+          mode: ${{ github.event.inputs.client }}-${{ github.event.inputs.deploy_env }}
+      - name: Summary
+        id: summary
+        run: |
+          echo "Variable 1: ${{ env.PROJECT_TITLE }} "
