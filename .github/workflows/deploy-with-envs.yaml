@@ -19,7 +19,6 @@ jobs:
   build:
     name: "build"
     runs-on: ubuntu
-    env:
     defaults:
       run:
         shell: bash
